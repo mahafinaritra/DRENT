@@ -1,0 +1,36 @@
+// create xml request string
+$xml = "xml string";
+// set HTTP POST URL
+$url = "https://webservices.xpressplatforms.com/";
+// create header string
+$curl_header = "POST ".$url." HTTP/1.0 \r\n";
+$curl_header .= "MIME-Version: 1.0 \r\n";
+$curl_header .= "Content-Type: application/PTI26 \r\n";
+$curl_header .= "Content-Length: “.strlen($xml)." \r\n";
+$curl_header .= "Content-Transfer-Encoding: text \r\n";
+$curl_header .= "Request-Number: 1 \r\n";
+$curl_header .= "Documentation-Type: Request \r\n";
+$curl_header .= "Interface-Version: Test 1.4 \r\n";
+$curl_header .= "Connection: close \r\n\r\n";
+$curl_header .= $xml;// add xml to header
+$curl = curl_init();// create HTTP POST request handler
+// set curl options
+curl_setopt($curl, CURLOPT_URL, $url);
+curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($curl, CURLOPT_TIMEOUT, 30);
+curl_setopt($curl, CURLOPT_CUSTOMREQUEST, $curl_header);
+curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
+$response = curl_exec($curl);// send HTTP POST request
+if(curl_errno($curl) > 0){// check for HTTP POST error
+exit;// process HTTP POST error
+}
+curl_close($curl);// close HTTP POST handler
+// process $response value for request response
+
+<header>
+ <apiVersion>1</apiVersion>
+ <loginGUID>DRS004</loginGUID>
+ <userID>100422</userID>
+ <loginKey>IswDJ9zzIUqW8LQU</loginKey>
+</header>
